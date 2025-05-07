@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Form - EduManage</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+    body {
+      background: linear-gradient(to bottom, #f4f7fa, #e0e7ff);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #1a2a44;
+    }
+    header {
+      width: 100%;
+      background: #1a2a44;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo span {
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    nav a:hover {
+      background-color: #3b82f6;
+      color: #ffffff;
+    }
+    nav a.active {
+      background-color: #2563eb;
+      color: #ffffff;
+    }
+    main {
+      max-width: 600px;
+      width: 100%;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      font-size: 32px;
+      color: #1a2a44;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 700;
+    }
+    form {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      padding: 30px;
+      width: 100%;
+    }
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 16px;
+      color: #6b7280;
+      transition: all 0.2s ease;
+      pointer-events: none;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+    .form-group input:focus {
+      border-color: #2563eb;
+      outline: none;
+    }
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label {
+      top: -10px;
+      left: 10px;
+      font-size: 12px;
+      color: #2563eb;
+      background: #ffffff;
+      padding: 0 5px;
+    }
+    button {
+      background: #2563eb;
+      color: #ffffff;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    #studentMessage {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 100%;
+      text-align: center;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeIn 0.3s ease forwards;
+    }
+    .success {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #6ee7b7;
+    }
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #f87171;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+      }
+      nav {
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      nav a {
+        font-size: 14px;
+        padding: 6px 12px;
+      }
+      main {
+        padding: 15px;
+      }
+      form {
+        padding: 20px;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="https://as2.ftcdn.net/v2/jpg/02/87/26/31/1000_F_287263137_dWL8Bvwj4cXjucnkwRgx4bBxKJkl0pvU.jpg" alt="EduManage Logo">
+      <span>EduManage</span>
+    </div>
+    <nav>
+      <a href="#" class="active">Add Student</a>
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Student Registration</h1>
+    <form id="studentForm">
+      <div class="form-group">
+        <input type="text" id="stud-name" name="name" placeholder=" " required>
+        <label for="stud-name">Student Name</label>
+      </div>
+      <div class="form-group">
+        <input type="text" id="studentClass" name="class" placeholder=" " required>
+        <label for="studentClass">Class (e.g., JSS1)</label>
+      </div>
+      <div class="form-group">
+        <input type="number" id="studentGrade" name="grade" placeholder=" " required>
+        <label for="studentGrade">Grade (0 - 100)</label>
+      </div>
+      <button type="submit">Add Student</button>
+    </form>
+    <div id="studentMessage"></div>
+  </main>
+
+  <script>
+    "use strict";
+
+    class Student {
+      constructor(studentName, studentClass, grade) {
+        if (!studentName || typeof studentName !== "string" || studentName.trim() === "") {
+          throw new Error("Student name must be a non-empty string");
+        }
+        if (!studentClass || typeof studentClass !== "string" || studentClass.trim() === "") {
+          throw new Error("Class must be a non-empty string");
+        }
+        if (isNaN(grade) || grade < 0 || grade > 100) {
+          throw new Error("Grade must be a number between 0 and 100");
+        }
+        this.name = studentName;
+        this.className = studentClass;
+        this.grade = grade;
+      }
+      getDetails() {
+        return `Name: ${this.name}, Class: ${this.className}, Grade: ${this.grade}`;
+      }
+    }
+
+    let StudentDb = (() => {
+      try {
+        const data = JSON.parse(localStorage.getItem("StudentDb"));
+        if (!Array.isArray(data)) return [];
+        return data
+          .filter(item => item && item.name && item.className && typeof item.grade === "number")
+          .map(item => new Student(item.name, item.className, item.grade));
+      } catch {
+        return [];
+      }
+    })();
+
+    function saveStudentDb() {
+      try {
+        localStorage.setItem("StudentDb", JSON.stringify(StudentDb));
+      } catch (error) {
+        throw new Error(`Failed to save student data: ${error.message}`);
+      }
+    }
+
+    document.getElementById("studentForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const studentName = document.getElementById("stud-name").value.trim();
+      const studentClass = document.getElementById("studentClass").value.trim();
+      const studentGrade = parseFloat(document.getElementById("studentGrade").value);
+      const messageDiv = document.getElementById("studentMessage");
+
+      try {
+        if (isNaN(studentGrade)) {
+          throw new Error("Grade must be a valid number");
+        }
+        const duplicate = StudentDb.find(student => {
+          try {
+            return (
+              student.name?.toLowerCase() === studentName.toLowerCase() &&
+              student.className?.toLowerCase() === studentClass.toLowerCase() &&
+              Math.abs
+
+(student.grade - studentGrade) < 0.0001
+            );
+          } catch {
+            return false;
+          }
+        });
+        if (duplicate) {
+          throw new Error("This student already exists in the database.");
+        }
+
+        const newStudent = new Student(studentName, studentClass, studentGrade);
+        StudentDb.push(newStudent);
+        saveStudentDb();
+        messageDiv.className = "success";
+        messageDiv.innerText = `Student Added!\n${newStudent.getDetails()}\n\nAll Students:\n${StudentDb.map(s => s.getDetails()).join("\n")}`;
+        document.getElementById("studentForm").reset();
+      } catch (error) {
+        messageDiv.className = "error";
+        messageDiv.innerText = error.message;
+      }
+    });
+  </script>
+</body>
+</html>
